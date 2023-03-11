@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form class='m-5'>
+        <h1>Add a Blog</h1>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Slug</label>
+            <input type="text" class="form-control" placeholder="Enter Slug">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Title</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Author</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Author">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Description</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Description">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlFile1">Thumbnail</label>
+            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Blog Content (In Markdown)</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" placeHolder='Enter Blog Text'></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock content %}  

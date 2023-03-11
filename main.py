@@ -26,6 +26,24 @@ def random_string(N):
                               string.digits, k=N))
   return str(res)
 
+# @app.route("/",methods = ['GET','POST'])
+# def start():
+#     if request.method == 'POST':
+#         foldername = random_string(10)
+#         slug = request.form.get("slug")
+#         markdown = request.form.get("markdown")
+#         data = {
+#             "slug":slug,
+#             "foldername":foldername
+#         }
+#         db.child("blogs").push(data)
+#         with open(f"local_files/content.md" ,'w') as file:
+#           file.write(markdown)
+#         storage.child(f"{foldername}/content.md").put("local_files/content.md")
+#         os.remove("local_files/content.md")
+#         return render_template("index.html")
+#     return render_template("index.html")
+
 @app.route("/",methods = ['GET','POST'])
 def start():
     if request.method == 'POST':
@@ -42,7 +60,8 @@ def start():
         storage.child(f"{foldername}/content.md").put("local_files/content.md")
         os.remove("local_files/content.md")
         return render_template("index.html")
-    return render_template("index.html")
+    return render_template("blog.html")
+
 
 
 if  __name__ == "__main__":
