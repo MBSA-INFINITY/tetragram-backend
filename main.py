@@ -77,7 +77,7 @@ def blogs_to_json():
         os.remove("file.txt")
     with open("data.json", "w") as f:
         f.write(json.dumps({'blogs': blog_array}))
-    return redirect("/")
+    return json.dumps({'blogs': blog_array}), 200
 
 
 @app.route("/blog", methods=['GET', 'POST'])
