@@ -66,6 +66,7 @@ def blogs_to_json():
             file_contents = f.read()
         print(image_url)
         blog_to_append = {
+            'id': doc_id,
             'title': blog["title"],
             'author': blog["author"],
             'description': blog["description"],
@@ -79,15 +80,42 @@ def blogs_to_json():
         f.write(json.dumps({'blogs': blog_array}))
     return json.dumps({'blogs': blog_array}), 200
 
+@app.route("/blog/<id>", methods=['GET'])
+def blog(id):
+    db.child("blogs").child(id).get()
+    blog = db.child("blogs").child(id).get()
+    blog = blog.val()
+    markdown_url = storage.child(f"{blog['foldername']}/content.md").get_url(None)
+    image_url = storage.child(f"{blog['foldername']}/thumbnail.jpg").get_url(None)
+    response = requests.get(markdown_url)
+    with open("file.txt", "wb") as f:
+            f.write(response.content)
+    with open("file.txt", "r") as f:
+        file_contents = f.read()
+    print(image_url)
+    blog_json = {
+        'id': id,
+        'title': blog["title"],
+        'author': blog["author"],
+        'description': blog["description"],
+        'slug': blog["slug"],
+        'image_url': image_url,
+        'markdown': file_contents
+    }
+    os.remove("file.txt")
+    with open("data.json", "w") as f:
+        f.write(json.dumps(blog_json))
+    return json.dumps(blog_json), 200
+
 
 @app.route("/blog", methods=['GET', 'POST'])
-def start():
+def add_blog():
     if request.method == 'POST':
         foldername = random_string(10)
         slug = request.form.get("slug")
         markdown = request.form.get("markdown")
         title = request.form.get("title")
-        author = request.form.get("author")
+        author = request.form.get("author") 
         description = request.form.get("description")
         thumbnail = request.files.get("thumbnail")
         data = {
